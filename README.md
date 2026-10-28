@@ -6,6 +6,7 @@ An operations analytics portfolio project built with **Python, Streamlit, Pandas
 
 ## Explore the Project
 
+- **[Launch Live Interactive Workbench](https://vikrant-opsintelligence.streamlit.app/)**
 - **[View Source Repository](https://github.com/Vikrantthenge/Apps)**
 - **[Read the User Guide](USER_GUIDE.md)**
 - **[Explore Period Comparison Methodology](PERIOD_COMPARISON.md)**

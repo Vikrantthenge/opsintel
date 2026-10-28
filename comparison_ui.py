@@ -38,9 +38,9 @@ def comparison_workspace(frame,project,client,source,audit):
  [data-testid="stFormSubmitButton"] button,
  button[data-testid="stBaseButton-primaryFormSubmit"],
  button[kind="primaryFormSubmit"] {
-  background-color:#60A5FA!important;color:#0B1220!important;
+  background-color:#E2E8F0!important;color:#0B1220!important;
   -webkit-text-fill-color:#0B1220!important;
-  border:2px solid #60A5FA!important;border-radius:10px!important;
+  border:2px solid #CBD5E1!important;border-radius:10px!important;
   min-height:48px;font-weight:700!important;
  }
  .st-key-opsintel_run_comparison button *,
@@ -53,7 +53,7 @@ def comparison_workspace(frame,project,client,source,audit):
   font-weight:700!important;
  }
  [data-testid="stFormSubmitButton"] button:hover {
-  background-color:#93C5FD!important;border-color:#93C5FD!important;
+  background-color:#CBD5E1!important;border-color:#94A3B8!important;
  }
  [data-testid="stFormSubmitButton"] button:focus-visible {
   outline:3px solid #FBBF24!important;outline-offset:3px;

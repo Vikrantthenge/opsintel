@@ -1,4 +1,6 @@
 import streamlit as st
+import base64
+from pathlib import Path
 
 def apply_theme():
  st.markdown('''<style>
@@ -35,6 +37,14 @@ def apply_theme():
  [data-testid="stDataFrame"],[data-testid="stPlotlyChart"]{border:1px solid #30435B;border-radius:14px;overflow:hidden}
  hr{border-color:#30435B}
  </style>''',unsafe_allow_html=True)
+ logo_path=Path(__file__).resolve().parent/'assets'/'opsintel-logo.png'
+ if logo_path.is_file():
+  logo_data=base64.b64encode(logo_path.read_bytes()).decode('ascii')
+  st.markdown(
+   '<div style="display:flex;justify-content:center;width:100%;padding:0 0 20px;">'
+   '<img src="data:image/png;base64,'+logo_data+'" alt="OpsIntel Operations Intelligence" '
+   'style="display:block;width:520px;max-width:100%;height:auto;">'
+   '</div>',unsafe_allow_html=True)
 
 def chart(fig,key=None):
  fig.update_layout(template='plotly_dark',paper_bgcolor='#17263B',plot_bgcolor='#17263B',font=dict(family='Inter, Arial, sans-serif',color='#F1F5F9',size=13),colorway=['#60A5FA','#34D399','#FBBF24','#FB7185','#B8C7DA'],margin=dict(l=24,r=24,t=35,b=30),hoverlabel=dict(bgcolor='#0B1220',font_color='#F1F5F9',bordercolor='#60A5FA'))

@@ -31,6 +31,34 @@ def segment_chart(table,title,key):
 
 
 def comparison_workspace(frame,project,client,source,audit):
+ st.markdown('''<style>
+ .st-key-opsintel_run_comparison button,
+ .stFormSubmitButton button,
+ button[data-testid$="FormSubmit"],
+ [data-testid="stFormSubmitButton"] button,
+ button[data-testid="stBaseButton-primaryFormSubmit"],
+ button[kind="primaryFormSubmit"] {
+  background-color:#60A5FA!important;color:#0B1220!important;
+  -webkit-text-fill-color:#0B1220!important;
+  border:2px solid #60A5FA!important;border-radius:10px!important;
+  min-height:48px;font-weight:700!important;
+ }
+ .st-key-opsintel_run_comparison button *,
+ .stFormSubmitButton button *,
+ button[data-testid$="FormSubmit"] *,
+ [data-testid="stFormSubmitButton"] button *,
+ button[data-testid="stBaseButton-primaryFormSubmit"] *,
+ button[kind="primaryFormSubmit"] * {
+  color:#0B1220!important;-webkit-text-fill-color:#0B1220!important;
+  font-weight:700!important;
+ }
+ [data-testid="stFormSubmitButton"] button:hover {
+  background-color:#93C5FD!important;border-color:#93C5FD!important;
+ }
+ [data-testid="stFormSubmitButton"] button:focus-visible {
+  outline:3px solid #FBBF24!important;outline-offset:3px;
+ }
+ </style>''',unsafe_allow_html=True)
  if 'date' not in frame:
   st.info('Connect a Date column in Data Workspace before comparing reporting periods.');return
  dates=normalized_dates(frame['date'])
@@ -75,7 +103,8 @@ def comparison_workspace(frame,project,client,source,audit):
   normalize=st.checkbox('Normalize additive measures per calendar day',value=bool(saved.get('normalize',False)),key='cmp_normalize')
   note=st.text_area('Comparison report commentary (optional)',value=saved.get('note',''),key='cmp_note')
   st.caption('Presets anchor to the latest valid date in the full dataset. Calendar presets include a full week/month and can be incomplete. Each period can span up to 3,660 days. Default calculation uses sums for volume/completed/cost and means for other fields. SLA requires 0/1 flags and is shown as a percentage.')
-  run=st.form_submit_button('Run comparison')
+  st.markdown('**Ready? Click Run comparison below to generate or refresh your results.**')
+  run=st.form_submit_button('Run comparison',type='primary',use_container_width=True,key='opsintel_run_comparison')
  if run:
   try:
    if len(baseline)!=2 or len(current)!=2:raise ValueError('Complete both date ranges before running a comparison.')

@@ -143,3 +143,20 @@ st.divider();st.caption('OpsIntel V2.6 • Projects saved locally. No authentica
 
 if save_project():
  st.sidebar.caption("Saved locally · "+st.session_state.saved_at[:19].replace("T"," ")+" UTC")
+
+# FOOTER
+# =============================================================
+st.markdown(
+    """<div style="text-align:center; padding:26px 0 20px; border-top:1px solid #30435B; margin-top:28px;">
+<div style="font-family:Inter,Arial,sans-serif; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#B8C7DA;">
+Operations Intelligence Control Tower · Vikrant Thenge
+</div>
+<div style="display:flex; justify-content:center; align-items:center; gap:22px; flex-wrap:wrap; margin-top:12px; font-size:13px;">
+<a href="mailto:vikrantthenge@outlook.com" style="color:#60A5FA; text-decoration:none; padding:4px 0;">Email</a>
+<a href="https://www.linkedin.com/in/vthenge" target="_blank" rel="noopener noreferrer" style="color:#60A5FA; text-decoration:none; padding:4px 0;">LinkedIn</a>
+<a href="https://github.com/Vikrantthenge/Apps" target="_blank" rel="noopener noreferrer" style="text-decoration:none; background:#E6EDF7; padding:4px 10px; border-radius:999px; color:#181717; font-weight:600;">GitHub</a>
+</div>
+<div style="font-size:11px; color:#B8C7DA; margin-top:10px;">© 2026 Vikrant Thenge</div>
+</div>""",
+    unsafe_allow_html=True,
+)

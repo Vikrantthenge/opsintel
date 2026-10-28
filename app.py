@@ -149,7 +149,7 @@ if save_project():
 st.markdown(
     """<div style="text-align:center; padding:26px 0 20px; border-top:1px solid #30435B; margin-top:28px;">
 <div style="font-family:Inter,Arial,sans-serif; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#B8C7DA;">
-Operations Intelligence Control Tower · Vikrant Thenge
+Operations Intelligence · Vikrant Thenge
 </div>
 <div style="display:flex; justify-content:center; align-items:center; gap:22px; flex-wrap:wrap; margin-top:12px; font-size:13px;">
 <a href="mailto:vikrantthenge@outlook.com" style="color:#60A5FA; text-decoration:none; padding:4px 0;">Email</a>

@@ -16,6 +16,16 @@ def apply_theme():
  [role="option"]:hover,[role="option"][aria-selected="true"],[data-baseweb="tag"]{background:#294568!important;color:#F1F5F9!important}
  .stButton button,.stDownloadButton button,[data-testid="stFileUploaderDropzone"]{background:#17263B;color:#F1F5F9;border:1px solid #49617D;border-radius:10px}
  .stButton button:hover,.stDownloadButton button:hover{border-color:#60A5FA;color:#60A5FA}
+ /* Keep uploader instructions and size limits visible in every pointer state. */
+ [data-testid="stFileUploader"] label,[data-testid="stFileUploader"] label *{color:#F1F5F9!important;-webkit-text-fill-color:#F1F5F9!important}
+ [data-testid="stFileUploaderDropzone"],[data-testid="stFileUploaderDropzone"]:hover,[data-testid="stFileUploaderDropzone"]:focus-within{background:#17263B!important;color:#F1F5F9!important;border:1px dashed #B8C7DA!important;border-radius:10px}
+ [data-testid="stFileUploaderDropzone"] p,[data-testid="stFileUploaderDropzone"] span,[data-testid="stFileUploaderDropzone"] small,[data-testid="stFileUploaderDropzoneInstructions"],[data-testid="stFileUploaderDropzoneInstructions"] *{color:#F1F5F9!important;-webkit-text-fill-color:#F1F5F9!important;opacity:1!important}
+ [data-testid="stFileUploaderDropzone"] svg{color:#B8C7DA!important}
+ [data-testid="stFileUploaderDropzone"] button{background:#E2E8F0!important;color:#0B1220!important;border:1px solid #CBD5E1!important;border-radius:10px;min-height:44px;font-weight:600!important}
+ [data-testid="stFileUploaderDropzone"] button *{color:#0B1220!important;-webkit-text-fill-color:#0B1220!important}
+ [data-testid="stFileUploaderDropzone"] button:hover{background:#CBD5E1!important;color:#0B1220!important;border-color:#94A3B8!important}
+ [data-testid="stFileUploaderDropzone"] button:focus-visible{outline:3px solid #FBBF24!important;outline-offset:3px}
+ [data-testid="stFileUploaderFileName"],[data-testid="stFileUploaderFileData"],[data-testid="stFileUploaderFileData"] *{color:#F1F5F9!important;-webkit-text-fill-color:#F1F5F9!important}
  /* Form submissions use a separate wrapper from regular Streamlit buttons. */
  [data-testid="stFormSubmitButton"] button{background:#60A5FA!important;color:#0B1220!important;border:1px solid #60A5FA!important;border-radius:10px;min-height:44px;font-weight:700!important}
  [data-testid="stFormSubmitButton"] button *{color:inherit!important;-webkit-text-fill-color:inherit!important}

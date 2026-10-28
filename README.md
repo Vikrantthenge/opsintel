@@ -1,150 +1,113 @@
-# OpsIntel Version 2.6 — Reporting-Period Comparisons (No Login)
+# OpsIntel — Operations Intelligence Workbench
 
-Built on the supplied Streamlit MVP, preserving all six original workspaces and retaining Targets & Alerts, saved projects and applied column mapping. This release builds on Version 2.4 without adding login, and adds a Period Comparison workspace with saved date ranges, KPI changes, aligned trends, location/service comparisons and comparison PDF/CSV exports. Guided cleanup and enhanced Client Reports remain available.
+An operations analytics portfolio project built with **Python, Streamlit, Pandas, Plotly, and SQLite**, combining executive dashboards, data-quality checks, reporting-period comparisons and PDF reporting.
 
-## Install and start
+**Version 2.6 · Created by Vikrant Thenge**
 
-Extract this package into a new folder. Stop the old app, open a terminal in the new `opsintel-v2` folder, then run:
+## Explore the Project
 
-    python -m pip install -r requirements.txt
-    python -m streamlit run app.py
+- **[View Source Repository](https://github.com/Vikrantthenge/Apps)**
+- **[Read the User Guide](USER_GUIDE.md)**
+- **[Explore Period Comparison Methodology](PERIOD_COMPARISON.md)**
 
-Windows users can also double-click `Start-OpsIntel.bat` after installing the requirements. Keep all Python files and `.streamlit` together. `app.py` is the entry point; supporting modules do not display standalone apps.
+## Project Overview
 
-## Compare reporting periods
+OpsIntel is an interactive workbench designed to help operations teams review performance, compare locations and services, investigate exceptions and prepare executive reports.
 
-Open Period Comparison, choose baseline and comparison dates, apply the same location/service filters, select a chart metric and press Run comparison. Weekly/monthly presets use the latest date in the dataset. Check the coverage table and warnings before interpreting changes. Settings are saved per project. Optional per-day normalization supports comparisons of unequal-length periods.
+The application connects the analytical workflow—from CSV preparation and validation to KPI monitoring, period comparisons and analyst-approved findings—within one interface. It extends an existing Streamlit MVP while retaining its original workflows.
 
-Read [PERIOD_COMPARISON.md](PERIOD_COMPARISON.md) for formulas, date handling, chart alignment, availability rules and exports. The workspace offers a separate comparison PDF export, and the existing Client Report remains a full-project report. No login or administrator setup is included.
+Potential applications include service delivery reviews, fulfilment monitoring, branch performance comparisons and periodic client reporting.
 
-## Saved projects
+## Key Performance Indicators
 
-The sidebar now provides Saved projects, Open selected project, editable project/client names, Save project now and Create a project.
+The Command Centre calculates the following indicators from the active dataset and selected filters:
 
-- Datasets, source names, saved findings/approval status, audit history, client/project names and report summary/limitations/chart choice, applied column mappings, target definitions, diagnostic settings, the pre-cleanup original copy and the last-run comparison settings are saved automatically after interactions.
-- The most recently saved project reopens on startup. Select a different project and press Open selected project to switch. The current project is saved before switching.
-- New projects start with the fictional sample dataset. Upload or paste your own data in Data Workspace.
-- Dashboard filters and unsaved investigation form text are temporary. Press Save finding to retain a finding. Mapping drafts are temporary; press Apply mapping to save them.
-- Data lives in `data/opsintel.sqlite3` beside `app.py`. The folder/database are created automatically. Storage failures show an error; keep the session open and fix folder permissions or disk space before retrying.
+- **Records analysed:** Number of records in the selected view.
+- **Total volume:** Sum of the operational volume field.
+- **Average cycle time:** Mean cycle time, expressed in minutes.
+- **SLA breach rate:** Percentage of row-level numeric 0/1 flags indicating a breach.
 
-### Upgrade from an earlier saved-project version
+Prior-period changes use the preceding window of equal length with the same location and service selections. Results depend on the uploaded data and its coverage; no fixed performance figures are claimed.
 
-1. Stop the running app.
-2. Back up its entire `data` folder.
-3. Extract this release into a new folder, then copy your existing `data` folder beside the new `app.py`.
-4. Run `python -m pip install -r requirements.txt` to install the updated dependencies, including Matplotlib.
-5. Start `app.py` from that folder. Your existing projects, mappings, findings and targets open without a database migration.
+## What the Workbench Demonstrates
 
-The package includes no database and will not replace your saved projects. If you replace files in the existing app folder instead, retain its `data` folder and copy every new/updated application file, including the new `periods.py`, `comparison_ui.py` and `comparison_report.py`, along with all existing supporting modules.
+- Monitoring operational KPIs through an executive command centre
+- Filtering performance by reporting period, location and service
+- Comparing baseline and current periods with coverage warnings and optional per-day normalization
+- Connecting custom CSV headers through validated column mapping
+- Checking missing values, duplicates, invalid fields and operational inconsistencies
+- Previewing cleanup before applying changes, with restoration of the pre-cleanup dataset
+- Evaluating configurable KPI targets with warning, critical and unavailable states
+- Recording evidence, alternative explanations and proposed validation steps
+- Generating executive PDFs with charts, quality context and analyst-approved findings
+- Retaining project datasets, configurations and saved records in SQLite
 
-### Upgrade from Version 2 (memory-only)
+## Application Workspaces
 
-Before stopping the old app, export its CSV, findings JSON and audit JSON. Upload the CSV into the new app. Findings and audit JSON imports are not included; keep those exports as reference or recreate findings in Investigation.
+| Workspace | Purpose |
+| --- | --- |
+| **Command Centre** | Executive KPIs, interactive filters, trends and segment comparisons |
+| **Period Comparison** | Reporting-window comparisons, aligned trends and PDF/CSV exports |
+| **Data Workspace** | CSV upload/paste, profiling, column mapping and guided cleanup |
+| **KPI Explorer** | Custom numeric metric exploration and grouped calculations |
+| **Targets & Alerts** | Configurable thresholds and on-demand exception evaluation |
+| **Investigation** | Evidence capture, alternative explanations and finding approval |
+| **Client Report** | Executive narrative, charts, target results and reviewed findings |
+| **Audit Trail** | Recorded project actions and JSON export |
 
-## Data quality and guided cleanup
+## Suggested Demo Walkthrough
 
-Open Data Workspace. Its Active source data table shows the current working dataset. Export original CSV uses the saved pre-cleanup original if one exists, otherwise the current source. The original is the parsed uploaded dataset, not a byte-for-byte copy of the original CSV file; CSV formatting and inferred column types can differ.
+1. Start with the fictional sample data and explore **Command Centre** filters.
+2. Run a weekly or monthly **Period Comparison** and inspect coverage before interpreting changes.
+3. Create a cycle-time or SLA target in **Targets & Alerts**.
+4. Review data-quality issues and preview optional cleanup in **Data Workspace**.
+5. Save and approve a finding in **Investigation**, then export a PDF from **Client Report**.
 
-Under Data quality & guided cleanup:
+## Skills Demonstrated
 
-1. Choose source columns for date checks, numeric checks, breach flags and completed-versus-volume comparison. Existing mappings and standard field names supply defaults; custom headers can be selected directly even if invalid values prevent applying a mapping.
-2. Choose the date format. Use Check data & preview cleanup to save these diagnostic settings and inspect the issue log. Leave every cleanup checkbox off for diagnostics only.
-3. If desired, select cleanup steps and preview them. The Before/After tables, row counts, replaced-invalid-cell count and remaining issue count describe the proposed result. Previewing does not change the dataset.
-4. Press Apply previewed cleanup only after reviewing the preview. Changed settings or changed source data require a new preview.
-5. Use Restore data before cleanup to restore the original parsed source. The backup survives app restarts and is stored with the project.
+Business analysis · KPI design · Data validation · Descriptive analytics · Interactive visualization · Modular Python development · SQLite persistence · Executive reporting · Automated calculation and workflow checks
 
-Checks include missing/blank cells, exact duplicate rows, completely empty rows, invalid selected dates, invalid/non-finite selected numbers, breach values outside 0/1, negative selected numbers and completed work greater than volume. Negative values are review items because some signed measures are legitimate. Issue entries can overlap: one cell or row may have several issues. The screen shows up to 1,000 entries; the issue CSV contains all entries. Value examples are limited to 200 characters; source data retains full values. Empty datasets show no-records guidance rather than a passing result.
+## Technology Stack
 
-Cleanup runs in this order: trim text, normalize blank text to missing, convert selected dates/numbers, remove empty rows, remove duplicates. Every step is optional. Conversion replaces invalid selected dates/numbers and invalid breach flags with missing values, converts valid values to date/numeric types, and normalizes timezone-aware dates to UTC. Plain numbers are required; currency symbols and thousands separators count as invalid. Duplicates are compared after the selected transformations, keeping the first matching row. Completely empty rows are assessed after those transformations. Therefore, conversion may make a row empty or make previously different rows equal.
+Python · Streamlit · Pandas · NumPy · Plotly · SQLite · Matplotlib · ReportLab · unittest · Streamlit AppTest
 
-Cleanup never fills missing values, guesses units, resolves negative values, adjusts completed work or infers a correction. Conversion may increase missing-value issues while reducing invalid-value issues; fewer issue entries alone is not proof of better data. Review remaining issues and use the original export when needed.
+## Run Locally
 
-The first applied cleanup preserves the dataset before cleanup. Further cleanups retain that same original, not a version history. Restoring clears the active backup; applying cleanup again creates a new one. Importing a replacement dataset or restoring the fictional sample starts a new source history and clears the previous backup, diagnostic settings and mapping. Existing findings and targets remain historical/project records and must be reviewed after data changes.
+From the application folder:
 
-## Enhanced PDF reports
+```bash
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
+```
 
-Open Client Report, enter the executive summary and limitations, choose a numeric chart metric and download the PDF. PDF generation is cached for unchanged report inputs. The PDF includes:
+**`app.py` is the entry point.** Keep the supporting modules and `.streamlit` folder together. New projects start with fictional sample data; another CSV can be loaded through Data Workspace.
 
-- Project/client/source information, generation time, valid date coverage and full-dataset scope.
-- Executive record, volume, cycle-time and SLA KPIs.
-- Embedded performance trend, location and service charts when the required fields exist.
-- Saved target results including warning/critical/unavailable states and sample/missing counts.
-- A data-confidence snapshot, issue counts by type and cleanup/original-row context.
-- Analyst-approved findings, limitations and the applied column mapping.
+Run the included period-comparison calculation tests with:
 
-PDFs use the full active mapped/cleaned project dataset. Command Centre filters are not applied, matching the existing report CSV scope. Only approved findings are included. Missing chart fields or non-numeric data produce an explanation instead of a chart. A saved mapping that cannot be applied blocks PDF generation until it is fixed or removed; original CSV and findings exports remain available. Non-finite measures or invalid breach flags are not silently treated as passing. Charts show daily/segment totals for volume, completed and cost; other metrics use row averages. Segment charts show the top 12 by value when there are more than 12 segments, and state that limit. Long labels may be shortened in charts; exports retain full values.
+```bash
+python -m unittest discover -s tests -v
+```
 
-The report uses a print-friendly navy/white design, embedded fonts, sharp chart images, repeated table headers and page numbers. Charts are generated locally with Matplotlib; no external chart rendering service or browser download is required. The app still provides CSV and findings JSON exports. The sample comparison report uses fictional data.
+## Data and Interpretation Disclaimer
 
-## KPI targets and alerts
+The built-in sample data is fictional and provided for portfolio demonstration. It does not represent verified organizational performance, operational improvements or cost savings.
 
-1. Open Targets & Alerts and select Create a new target.
-2. Name the target, choose its numeric metric and calculation, and select At most or At least.
-3. Choose Overall, By location or By service. Grouped rules evaluate each visible segment separately.
-4. Set the target and critical thresholds and press Save target.
-5. Return to Command Centre. Its Performance alerts table updates with your date, location and service selections. The Targets & Alerts page always evaluates the full dataset.
+Comparisons are descriptive and do not establish causation. SLA breach rate is calculated from row-level 0/1 flags and is not volume-weighted. Missing fields and incomplete date coverage affect interpretation. Mapping does not convert units: cycle time must already be in minutes and cost in INR.
 
-Examples (set thresholds appropriate to your operations):
+Command Centre filters apply to that workspace. Client Reports use the full active project dataset, while Period Comparison uses its own saved selections. Findings require human review; only analyst-approved findings appear in reports.
 
-| Target | Metric | Calculation | Direction | Target | Critical |
-| --- | --- | --- | --- | --- | --- |
-| Cycle time guardrail | cycle_time_min | mean | At most | 40 minutes | 60 minutes |
-| SLA breach limit | sla_breach | mean | At most | 5% | 10% |
-| Minimum throughput | volume | sum | At least | 1,000 | 800 |
+## Current Scope and Demo Use
 
-For At most, equality with the target is On target; values above the target are Warning; values at or above the critical threshold are Critical. Critical must exceed the target. For At least, equality with the target is On target; values below the target are Warning; values at or below the critical threshold are Critical. Critical must be below the target. Thresholds are absolute numbers in the calculated metric's units, not relative percentage changes.
+Version 2.6 has **no login or visitor-level data isolation**. Projects use a shared SQLite database on the application host, so public-demo visitors may access the same saved projects. Use fictional or de-identified data only.
 
-SLA breach targets require mean over numeric 0/1 flags and percentage thresholds from 0 to 100. Other metrics support mean, sum, median and count. Count counts non-missing numeric values, not volume. Missing metric values are excluded and their count is shown. Empty views, missing/non-numeric metrics, non-finite values, absent scope columns, invalid breach flags and no usable values show Unavailable. Unavailable results never produce an all-on-track message.
+This release is designed as a single-user workbench. Concurrent edits can overwrite changes, and hosting with temporary storage can lose saved projects across restarts or redeployments. Alerts run on demand inside the app; background monitoring and email notifications are not included. The audit trail is an application history, not a tamper-proof compliance log.
 
-Target totals use the current reporting window; thresholds are not prorated by date range or number of locations. A project-level threshold applies equally to every segment when grouped. A missing location or service value is shown as a missing segment on the full-dataset page; Command Centre segment filters may exclude it.
+Detailed setup, backup, calculation and operating instructions are available in the [User Guide](USER_GUIDE.md) and [Period Comparison Guide](PERIOD_COMPARISON.md).
 
-Choose a saved target to edit it. To remove it, select the target, confirm removal and press Remove selected target. Export alert results CSV downloads current evaluated results; Export target definitions JSON downloads the saved rules. JSON import is not included. Definitions, edits and removals are saved with the project and recorded in its audit trail. Alert evaluations are computed on demand and are not appended to the audit trail.
+## Author
 
-These are in-app alerts. There is no background monitoring, email or external notification. Rules are retained when replacing a dataset or changing its mapping; review their metrics and units after any data change. Missing fields show Unavailable until the rule or mapping is updated. Target configuration drafts are saved only by pressing Save target. The existing KPI Explorer optional target remains an audit-only KPI definition field; configure live thresholds here.
+**Vikrant Thenge**
 
-## Connect your CSV columns
+[LinkedIn](https://www.linkedin.com/in/vthenge) · [GitHub](https://github.com/Vikrantthenge/Apps) · [Email](mailto:vikrantthenge@outlook.com)
 
-1. Open Data Workspace and upload or paste your data.
-2. Under Connect your columns, select the source header for each available field, for example `Branch` → Location and `Cases` → Volume. Fields are optional; standard OpsIntel headers are preselected when present.
-3. Select the source date format: ISO (`2026-08-01`), day/month/year (`01/08/2026`) or month/day/year (`08/01/2026`).
-4. Press Preview mapping and inspect the resulting field names, values and dates.
-5. Press Apply mapping. All analysis pages and analysis CSV exports use the mapped view. The mapping is saved per project and restored after restarting.
-
-Source data and extra columns remain available. Data Workspace profiles the original source and offers Export original CSV; Client Report CSV and Command Centre filtered CSV use the analysis view. Export mapping JSON downloads the applied configuration, not a draft. Mapping JSON import is not included.
-
-Mapped numeric fields accept plain numbers (no currency symbols or thousands separators). Cycle time must already be in minutes and cost in INR. Breach flags must be 0/1; text labels and percentage rates require source preparation. Invalid non-empty values, duplicate source assignments and destination column collisions block the whole mapping. No partial mapping is committed. Empty mapped dates/numbers stay missing, and rows are retained. Dates carrying timezone offsets are converted to UTC. Mapping does not convert units, fill gaps or remove duplicates.
-
-A source column can supply one field only. If the destination name already exists, use that existing column or map it to another available field to avoid duplicate analysis columns. Unmapped columns remain under their original names, so existing standard headers continue to work even if left unassigned.
-
-Remove applied mapping returns analysis to original source fields. Loading a replacement dataset or restoring the sample clears the previous mapping to prevent stale assignments. Findings already saved remain historical records; review them after changing the dataset or mapping. Mapping changes are recorded in the project audit trail.
-
-### Backup and move computers
-
-Stop the app, then copy the entire `data` folder to a safe location. To restore or move projects, stop the destination app and copy that folder beside its `app.py`. Keep the database when replacing application files in future. The ZIP contains no user data. Data is stored on the machine running Streamlit, which may differ from the browser machine.
-
-This remains a local, single-user workbench without login or database encryption. The server binds to 127.0.0.1 by default. Avoid opening the same project in multiple concurrent sessions: the last save wins. Hosted services with temporary disks need persistent storage to retain this database across redeployments.
-
-## Existing capabilities
-
-Dark interface using the requested navy palette, Inter with Arial fallback, date/location/service filters, four executive KPIs with prior-period deltas, selectable performance trends, location/service comparisons and filtered CSV export. CSV upload/paste, profiling, KPI exploration, investigation, approved-finding PDF reports and CSV/JSON exports remain available.
-
-Run from this folder to load `.streamlit/config.toml` for native table and widget colors. Inter loads from Google Fonts when available.
-
-## Data and calculation notes
-
-Recognized dashboard columns are `date`, `location`, `service`, `volume`, `completed`, `cycle_time_min`, `sla_breach` and `cost_inr`. Other numeric fields remain available for exploration. Missing columns disable corresponding controls or show N/A. Applied column mapping supplies these fields from your source headers in the analysis view; original stored data remains unchanged.
-
-Volume, completed work and cost charts use sums; other metrics use row averages. SLA assumes a numeric 0/1 breach flag per row and is displayed as a percentage, not a volume-weighted rate. Date filters exclude invalid dates and show their count. Missing segment values are excluded by active segment filters. Empty selections show no records. Prior-period deltas use an equal-length preceding period and the same segment selections; incomplete source coverage can affect comparisons.
-
-Command Centre filters apply only to that page. Other workspaces and report data exports use the full active dataset. Comparisons are descriptive, and findings require human review. PDFs contain embedded charts, target/quality summaries and approved findings. Use fictional or de-identified data.
-
-## Verification
-
-Streamlit AppTest passed mapping preview/application, mapped KPIs/charts/filters, rejection of invalid drafts, original-data preservation, fresh-session mapping restoration, project isolation, mapping removal, replacement-data resets, older project compatibility and all six original pages. Saved-project regression checks cover project creation, switching, autosave, findings, report drafts and audit restoration. Storage round trips preserve tested datetime, string identifiers and missing numeric values. Targets & Alerts checks also passed upper/lower threshold boundaries, warning/critical levels, grouped and filter-sensitive results, SLA percentage calculations, all four aggregations, unavailable/empty states, target creation/edit/removal, invalid edit preservation, restart persistence, project isolation, older payload compatibility and all seven pages. Data quality and report checks passed non-mutating previews, preview-before-apply enforcement, stale-plan rejection, explicit cleanup steps, original-copy persistence/restore, replacement-data resets, diagnostic issue types, approved-only findings, chart embedding, escaped metadata and no-numeric fallback. Storage checks retain numeric infinities so diagnostic evidence survives restart. Long text, long category labels and multi-page target tables were exercised. The sample PDF was rendered and visually inspected. Python compilation passed. Period-comparison checks cover known totals, rates and percentage-point changes, zero baselines, inclusive dates, missing/non-finite data, timezone conversion, reserved field names, filtering, absent segments, normalization, unequal/overlapping periods, leap-year presets, saved configuration, invalid draft rejection and no-login startup. AppTest exercises all eight workspaces, comparison charts/PDF exports, project isolation, replacement-data resets and missing-date fallback. Existing project, mapping, cleanup, target and report regression suites run against this no-login source. The comparison PDF is rendered and visually checked, including long labels, long tables and unavailable-data cases. New Streamlit controls are verified with AppTest; their browser appearance has not been manually reviewed.
-
-
-## Developer checks
-
-From this app folder, run `python -m unittest discover -s tests -v` for the included comparison calculation tests. Test data is synthetic and does not create or modify the project database.
-
-This version intentionally does not include Version 2.5 account controls. If you copy a database that contains account tables, those tables remain in the file but are ignored by this no-login build; they do not restrict access. Keep backups private.
+© 2026 Vikrant Thenge

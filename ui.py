@@ -16,6 +16,12 @@ def apply_theme():
  [role="option"]:hover,[role="option"][aria-selected="true"],[data-baseweb="tag"]{background:#294568!important;color:#F1F5F9!important}
  .stButton button,.stDownloadButton button,[data-testid="stFileUploaderDropzone"]{background:#17263B;color:#F1F5F9;border:1px solid #49617D;border-radius:10px}
  .stButton button:hover,.stDownloadButton button:hover{border-color:#60A5FA;color:#60A5FA}
+ /* Form submissions use a separate wrapper from regular Streamlit buttons. */
+ [data-testid="stFormSubmitButton"] button{background:#60A5FA!important;color:#0B1220!important;border:1px solid #60A5FA!important;border-radius:10px;min-height:44px;font-weight:700!important}
+ [data-testid="stFormSubmitButton"] button *{color:inherit!important;-webkit-text-fill-color:inherit!important}
+ [data-testid="stFormSubmitButton"] button:hover:not(:disabled){background:#93C5FD!important;border-color:#93C5FD!important;color:#0B1220!important}
+ [data-testid="stFormSubmitButton"] button:focus-visible{outline:3px solid #FBBF24!important;outline-offset:3px}
+ [data-testid="stFormSubmitButton"] button:disabled{background:#294568!important;color:#B8C7DA!important;border-color:#49617D!important;opacity:1!important;cursor:not-allowed}
  [data-testid="stDataFrame"],[data-testid="stPlotlyChart"]{border:1px solid #30435B;border-radius:14px;overflow:hidden}
  hr{border-color:#30435B}
  </style>''',unsafe_allow_html=True)
